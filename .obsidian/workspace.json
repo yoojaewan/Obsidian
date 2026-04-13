@@ -191,8 +191,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "208f85ee50335d2c",
+  "active": "cb7ba90f6f930758",
   "lastOpenFiles": [
+    "02_System_Architecture/24_Color_System.md",
+    "02_System_Architecture/24_Color_System.md.tmp.53956.1776061017933",
+    "04_Data_Model/41_Character_Data_Schema.md.md.tmp.53956.1776061002756",
     "00.Index/03_Decision_Log.md",
     "00.Index/04_Open_Questions.md",
     "00.Index/03_Decision_Log.md.tmp.53956.1776060942856",
@@ -215,8 +218,6 @@
     "04_Data_Model",
     "03_Asset_Spec",
     "02_System_Architecture",
-    "01_Core_Design",
-    "00.Index/무제",
     "start.md"
   ]
 }
