@@ -42,9 +42,38 @@
 
 ---
 
+## Krita에서 테스트하는 법
+
+- 레이어에 곱하기(Multiply) 블렌드 모드로 색 올리는 방식은 **하이라이트가 적용 안 됨** → 사용 금지
+- 올바른 방법: **필터 > 지도 > 그라디언트 맵**
+  - 왼쪽 끝 (어두움) → 그림자 색
+  - 중간 → 주 컬러
+  - 오른쪽 끝 (밝음) → 하이라이트 색
+
+---
+
 ## Godot 구현
 
 셰이더에서 주 컬러 1개를 uniform으로 받아 하이라이트/그림자 색을 자동 계산 후 그레이스케일 텍스처에 매핑.
+
+파츠별로 `main_color` uniform만 다르게 넘겨주면 각각 다른 색 실시간 적용 가능.
+
+```glsl
+shader_type canvas_item;
+
+uniform vec4 main_color : source_color;
+
+void fragment() {
+    float brightness = texture(TEXTURE, UV).r; // 그레이스케일 밝기값
+
+    vec4 shadow    = vec4(main_color.rgb * 0.4, 1.0);                      // 어두움
+    vec4 highlight = vec4(min(main_color.rgb * 1.8 + 0.2, 1.0), 1.0);     // 밝음
+
+    COLOR = mix(mix(shadow, main_color, smoothstep(0.0, 0.5, brightness)),
+                highlight,
+                smoothstep(0.5, 1.0, brightness));
+}
+```
 
 ---
 
