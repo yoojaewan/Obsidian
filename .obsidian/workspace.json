@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "52bd94b467d0d301",
+        "id": "977437256bb1b592",
         "type": "tabs",
         "children": [
           {
-            "id": "c583ff2945a877a9",
+            "id": "f239af15e6d51db9",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "00.Index/04_Open_Questions.md",
-                "mode": "source",
-                "source": false
+                "aFile": ".claude/worktrees/bold-khorana",
+                "bFile": ".claude/worktrees/bold-khorana",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "04_Open_Questions"
+              "icon": "diff",
+              "title": "Diff: bold-khorana  (Working Tree)"
             }
           }
         ]
@@ -191,13 +191,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cb7ba90f6f930758",
+  "active": "f239af15e6d51db9",
   "lastOpenFiles": [
+    "00.Index/03_Decision_Log.md",
+    "00.Index/04_Open_Questions.md",
     "02_System_Architecture/24_Color_System.md",
     "02_System_Architecture/24_Color_System.md.tmp.53956.1776061017933",
     "04_Data_Model/41_Character_Data_Schema.md.md.tmp.53956.1776061002756",
-    "00.Index/03_Decision_Log.md",
-    "00.Index/04_Open_Questions.md",
     "00.Index/03_Decision_Log.md.tmp.53956.1776060942856",
     "무제.canvas",
     "2026-04-13.md",
