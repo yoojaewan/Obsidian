@@ -2,7 +2,7 @@
 
 ## 목적
 2D SRPG용 캐릭터 초상화/케릭터시트/에셋 생성 툴 설계 문서
-툴의 개발 목적은 SRPG 개발을 들어가기전에 미리 에셋 생성용
+툴의 개발 목적은 SRPG 개발을 들어가기전에 미리 에셋 생성용test
 
 ## 현재 목표
 - 모듈형 캐릭터 생성 구조 정리
@@ -12,7 +12,7 @@
 ## 우선 읽을 문서
 - [[01_Project_Summary]]
 - [[11_Design_Principles]]
-- [[20_System_Overview.md]]
+- [[20_System_Overview]]
 - [[03_Decision_Log]]
 - [[04_Open_Questions]]
 

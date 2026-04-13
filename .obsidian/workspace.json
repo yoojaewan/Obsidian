@@ -11,14 +11,14 @@
             "id": "c583ff2945a877a9",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": ".obsidian/appearance.json",
-                "bFile": ".obsidian/appearance.json",
-                "aRef": ""
+                "file": "04_Data_Model/41_Character_Data_Schema.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: appearance.json  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "41_Character_Data_Schema"
             }
           }
         ]
@@ -193,6 +193,13 @@
   },
   "active": "c583ff2945a877a9",
   "lastOpenFiles": [
+    "02_System_Architecture/26_Helmet_Handling_System.md",
+    "02_System_Architecture/20_System_Overview.md",
+    "02_System_Architecture/22_Layer_System.md",
+    "02_System_Architecture/23_Anchor_System.md",
+    "01_Core_Design/11_Design_Principles.md",
+    "00.Index/00_Vault_Home.md",
+    "00.Index/01_Project_Summary.md",
     "00.Index/04_Open_Questions.md",
     "02_System_Architecture/24_Color_System.md",
     "02_System_Architecture/24_Color_System.md.tmp.53956.1776061017933",
@@ -201,16 +208,9 @@
     "00.Index/03_Decision_Log.md.tmp.53956.1776060942856",
     "무제.canvas",
     "2026-04-13.md",
-    "00.Index/01_Project_Summary.md",
-    "00.Index/00_Vault_Home.md.md",
-    "02_System_Architecture/20_System_Overview.md.md",
     "22_Layer_System.md",
     "41_Character_Data_Schema.md",
-    "04_Data_Model/41_Character_Data_Schema.md.md",
-    "02_System_Architecture/26_Helmet_Handling_System.md.md",
-    "02_System_Architecture/23_Anchor_System.md.md",
-    "02_System_Architecture/22_Layer_System.md.md",
-    "01_Core_Design/11_Design_Principles.md",
+    "04_Data_Model/41_Character_Data_Schema.md",
     "99_Archive",
     "07_Examples",
     "06_Production",

@@ -5,8 +5,8 @@
 
 ## Rendering Structure
 
-- [[22_Layer_System.md]] 
-- [[23_Anchor_System.md]]
+- [[22_Layer_System]] 
+- [[23_Anchor_System]]
 
 ## Character Generation
 
@@ -15,8 +15,8 @@
 ## Visual Systems
 
 - [[24_Color_System.md]]
-- [[26_Helmet_Handling_System.md]]
+- [[26_Helmet_Handling_System]]
 
 ## Data Model
 
-- [[41_Character_Data_Schema.md]]
+- [[41_Character_Data_Schema]]
