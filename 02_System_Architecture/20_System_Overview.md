@@ -10,7 +10,7 @@
 
 ## Character Generation
 
-- [[25_Random_Generator_System.md]]
+- [[25_Random_Generator_System]]
 
 ## Visual Systems
 

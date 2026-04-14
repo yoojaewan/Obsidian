@@ -81,6 +81,20 @@ Helmet_Front
 
 ---
 
+## Head Group System
+
+초상화 각도는 **정면 고정**. 각도 바리에이션은 다음 두 파라미터로 확보한다.
+
+- `head.offset_y` — 머리 Y 위치 조정 (목 길이 / 거북목 표현)
+- `head.rotation_z` — Z축 미세 회전 (고개 기울기)
+
+**Godot 씬 그룹:**
+- Head Node2D 하위에 BodyBase, FaceBase, Eyes, Nose, Mouth, Beard, Helmet 포함
+- Hair는 중력 표현을 위해 Head 그룹 밖 — 회전/오프셋 영향 없음
+- Armor는 몸통이므로 Head 그룹 밖
+
+---
+
 ## Anchor System
 
 - 파츠 좌표는 **FaceTemplate이 소유한다**
@@ -174,6 +188,18 @@ Helmet
 
 ---
 
+## Parts Metadata — 파츠 수치 시스템
+
+각 파츠는 다음 두 가지 수치를 메타데이터로 가진다.
+
+- `beauty` : 미수치 (-10 ~ +10). 높을수록 아름다운 인상, 낮을수록 거칠고 투박한 인상
+- `age` : 연령감 (-10 ~ +10). 높을수록 나이들어 보임, 낮을수록 어려 보임
+
+캐릭터 생성 시 장착 파츠 전체 합산 → 캐릭터 총합 수치 보유.
+유사 수치 파츠끼리 조합하면 자연스러운 인상 확보 (예: beauty 낮은 파츠끼리 → 거친 전사형).
+
+---
+
 ## Asset Generator 목적
 
 - 인게임 에셋 조합이 올바르게 렌더링되는지 **확인용**
@@ -233,4 +259,3 @@ Helmet
 - Armor 바리에이션 방식
 - 랜덤 생성 가중치 정책
 - Face scale 범위
-- 얼굴 각도 수

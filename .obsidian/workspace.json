@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "977437256bb1b592",
+        "id": "e025eb0f04cc43b8",
         "type": "tabs",
         "children": [
           {
-            "id": "f239af15e6d51db9",
+            "id": "dec8dfb1bae0ceb7",
             "type": "leaf",
             "state": {
               "type": "split-diff-view",
               "state": {
-                "aFile": ".claude/worktrees/bold-khorana",
-                "bFile": ".claude/worktrees/bold-khorana",
+                "aFile": "00.Index/03_Decision_Log.md",
+                "bFile": "00.Index/03_Decision_Log.md",
                 "aRef": ""
               },
               "icon": "diff",
-              "title": "Diff: bold-khorana  (Working Tree)"
+              "title": "Diff: 03_Decision_Log  (Working Tree)"
             }
           }
         ]
@@ -193,6 +193,12 @@
   },
   "active": "cb7ba90f6f930758",
   "lastOpenFiles": [
+    "Work_Log/2026-04-13.md",
+    "02_System_Architecture/25_Random_Generator_System.md",
+    "04_Data_Model/42_Parts_Metadata_Schema.md",
+    "04_Data_Model/42_Parts_Metadata_Schema.md.tmp.7608.1776126674601",
+    "00.Index/03_Decision_Log.md.tmp.7608.1776126283486",
+    "02_System_Architecture/24_Color_System.md.tmp.7608.1776125514651",
     "02_System_Architecture/24_Color_System.md",
     "02_System_Architecture/24_Color_System.md.tmp.48520.1776070270107",
     "02_System_Architecture/26_Helmet_Handling_System.md.md.tmp.48520.1776070245577",
@@ -215,9 +221,6 @@
     "01_Core_Design/11_Design_Principles.md",
     "99_Archive",
     "07_Examples",
-    "06_Production",
-    "05_AI_Workspace",
-    "04_Data_Model",
     "start.md"
   ]
 }
