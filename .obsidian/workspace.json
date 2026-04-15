@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "3c4202040f0a8082",
+        "id": "5558cab69ddd08b0",
         "type": "tabs",
         "children": [
           {
-            "id": "f1e89c5058cd1bda",
+            "id": "778644771c52c7c8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "04_Data_Model/42_Parts_Metadata_Schema.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "42_Parts_Metadata_Schema"
+              "title": "새 탭"
             }
           }
         ]
@@ -191,22 +187,22 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f1e89c5058cd1bda",
+  "active": "778644771c52c7c8",
   "lastOpenFiles": [
-    "00.Index/Work_Log/2026-04-15.md",
+    "Work_Log/2026-04-13.md",
+    "Work_Log/2026-04-14.md",
+    "Work_Log/2026-04-15.md",
+    "04_Data_Model/42_Parts_Metadata_Schema.md",
     "04_Data_Model/42_Parts_Metadata_Schema.md.tmp.20940.1776223615623",
     "03_Class_Design/32_Art_Concept.md",
     "03_Class_Design/31_Class_Silhouette.md",
     "03_Class_Design",
-    "00.Index/Work_Log/2026-04-14.md",
     "00.Index/Work_Log",
     "00.Index/03_Decision_Log.md.tmp.14896.1776134318130",
     "00.Index/03_Decision_Log.md.tmp.14896.1776134313039",
     "00.Index/03_Decision_Log.md.tmp.14896.1776131801804",
     "00.Index/03_Decision_Log.md.tmp.14896.1776131796616",
-    "Work_Log/2026-04-13.md",
     "02_System_Architecture/25_Random_Generator_System.md",
-    "04_Data_Model/42_Parts_Metadata_Schema.md",
     "04_Data_Model/42_Parts_Metadata_Schema.md.tmp.7608.1776126674601",
     "00.Index/03_Decision_Log.md.tmp.7608.1776126283486",
     "02_System_Architecture/24_Color_System.md.tmp.7608.1776125514651",
