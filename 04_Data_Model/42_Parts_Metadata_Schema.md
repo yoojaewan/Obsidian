@@ -11,6 +11,7 @@
 |---|---|---|
 | `beauty` | 미수치. 높을수록 아름다운 인상, 낮을수록 거칠고 투박한 인상 | -10 ~ +10 |
 | `age` | 연령감. 높을수록 나이들어 보임, 낮을수록 어려 보임 | -10 ~ +10 |
+| `texture` | 소재 질감. 렌더링 시 그라디언트 맵 이후 오버레이로 적용. **장비 파츠(Armor, Helmet)에만 적용, 얼굴 파츠는 생략** | `metal` / `leather` / `cloth` |
 
 ## 파일 구조
 
@@ -28,6 +29,14 @@
   "id": "eyes_02",
   "beauty": 7,
   "age": -3
+}
+
+// armor_knight_01.json — 기사 철갑옷
+{
+  "id": "armor_knight_01",
+  "beauty": -2,
+  "age": 3,
+  "texture": "metal"
 }
 
 // nose_blunt_01.json — 뭉툭한 코

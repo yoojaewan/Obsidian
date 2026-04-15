@@ -2,7 +2,7 @@
 
 ## 원칙
 
-- 파츠 에셋은 **그레이스케일**로 제작한다
+- 파츠 에셋은 **그레이스케일 원본**으로 제작한다
 - 색상은 런타임에 **그라디언트 매핑**으로 적용한다
 - 유저는 **주 컬러 1개**만 지정하면 된다
 
@@ -10,14 +10,14 @@
 
 ## 그라디언트 매핑 동작 원리
 
-그레이스케일 이미지의 각 픽셀은 밝기값(0~255)을 가진다.
+그레이스케일 원본의 각 픽셀은 밝기값(0~255)을 가진다.
 이 밝기값이 **어디가 하이라이트고 어디가 그림자인지**를 결정한다.
 
 | 픽셀 밝기 | 의미 | 적용 색 |
 |---|---|---|
 | 255 (흰색) | 빛이 가장 많이 닿는 곳 | 하이라이트 색 |
 | 128 (회색) | 중간톤 | 주 컬러 그대로 |
-| 0 (검정) | 가장 어두운 그림자 | 그림자 색 |
+| 0 (검정) | 윤곽선 | 검정 고정 (그라디언트 맵 미적용) |
 
 주 컬러 하나에서 하이라이트/그림자 색을 자동 계산:
 - 하이라이트: 주 컬러 → 밝기 증가 + 채도 감소
@@ -25,15 +25,28 @@
 
 ---
 
+## 그레이스케일 원본 기준값
+
+파츠 간 색상 일관성을 위해 **모든 파츠의 중간톤(기본 색 영역)은 128 회색**을 기준으로 제작한다.
+
+- 기본 색 영역: 128 (중간 회색)
+- 윤곽선: 순수 #000000 (검정 고정)
+- 그림자: #1a1a1a 이상 (윤곽선과 구분)
+- 하이라이트: 128 이상
+
+FaceBase와 BodyBase의 피부 기본 영역이 같은 밝기값으로 통일되어야 `skin_color`를 동일하게 넣었을 때 같은 색이 나온다.
+
+---
+
 ## 역할 분담
 
 | 역할 | 담당 |
 |---|---|
-| 하이라이트/그림자 위치 결정 | AI가 그레이스케일로 생성할 때 |
+| 하이라이트/그림자 위치 결정 | AI가 그레이스케일 원본으로 생성할 때 |
 | 색상 적용 | 프로그램이 주 컬러 기준으로 자동 계산 |
 
 프로그램은 색을 입힐 뿐, 명암 구조는 만들어내지 않는다.
-**그레이스케일 베이스의 명암 품질이 최종 결과물 품질을 결정한다.**
+**그레이스케일 원본의 명암 품질이 최종 결과물 품질을 결정한다.**
 
 ---
 
@@ -44,10 +57,12 @@ AI 이미지 생성 시 다음 키워드를 포함한다:
 ```
 grayscale, monochrome, [파츠명] asset, game sprite,
 white background, strong highlights, deep shadows,
-no color, concept art
+pure black outlines, no color, concept art
 ```
 
-흑백 사진처럼 명암이 뚜렷하게 나오면 정상이다.
+- 윤곽선은 반드시 순수 #000000으로 생성되어야 한다
+- 그림자는 윤곽선보다 밝은 회색(#1a1a1a 이상)이어야 한다
+- 기본 색 영역(중간톤)은 128 회색 기준으로 생성한다
 
 ---
 
@@ -73,6 +88,8 @@ AI 생성 후 Krita에서 다음 작업이 필요하다:
 
 ## 적용 대상
 
+- FaceBase ← `skin_color` uniform
+- BodyBase ← `skin_color` uniform (FaceBase와 동일값)
 - Hair (Front / Side / Back)
 - Eyes
 - Beard
@@ -83,7 +100,9 @@ AI 생성 후 Krita에서 다음 작업이 필요하다:
 
 ## Godot 구현
 
-셰이더에서 주 컬러 1개를 uniform으로 받아 하이라이트/그림자 색을 자동 계산 후 그레이스케일 텍스처에 매핑한다.
+셰이더에서 주 컬러 1개를 uniform으로 받아 하이라이트/그림자 색을 자동 계산 후 그레이스케일 원본에 매핑한다.
+
+윤곽선(밝기 0)은 그라디언트 맵을 적용하지 않고 검정으로 고정한다.
 
 파츠별로 `main_color` uniform만 다르게 넘겨주면 각각 다른 색 실시간 적용 가능.
 
@@ -93,14 +112,18 @@ shader_type canvas_item;
 uniform vec4 main_color : source_color;
 
 void fragment() {
-    float brightness = texture(TEXTURE, UV).r; // 그레이스케일 밝기값
+    float brightness = texture(TEXTURE, UV).r;
 
-    vec4 shadow    = vec4(main_color.rgb * 0.4, 1.0);                      // 어두움
-    vec4 highlight = vec4(min(main_color.rgb * 1.8 + 0.2, 1.0), 1.0);     // 밝음
+    if (brightness < 0.04) {  // 순수 검정 = 윤곽선, 그라디언트 맵 미적용
+        COLOR = vec4(0.0, 0.0, 0.0, 1.0);
+    } else {
+        vec4 shadow    = vec4(main_color.rgb * 0.4, 1.0);
+        vec4 highlight = vec4(min(main_color.rgb * 1.8 + 0.2, 1.0), 1.0);
 
-    COLOR = mix(mix(shadow, main_color, smoothstep(0.0, 0.5, brightness)),
-                highlight,
-                smoothstep(0.5, 1.0, brightness));
+        COLOR = mix(mix(shadow, main_color, smoothstep(0.0, 0.5, brightness)),
+                    highlight,
+                    smoothstep(0.5, 1.0, brightness));
+    }
 }
 ```
 
@@ -108,6 +131,7 @@ void fragment() {
 
 ## 주의
 
-- 그레이스케일 베이스의 명암 품질이 최종 결과물 품질을 결정한다
+- 그레이스케일 원본의 명암 품질이 최종 결과물 품질을 결정한다
 - 프로그램은 색을 입힐 뿐, 명암 구조는 만들어내지 않는다
 - Krita에서 Multiply 블렌드 모드는 이 용도에 사용 금지
+- 파츠 간 중간톤 밝기값이 다르면 같은 컬러를 넣어도 다른 색이 나온다 → 128 기준 통일 필수

@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "e025eb0f04cc43b8",
+        "id": "3c4202040f0a8082",
         "type": "tabs",
         "children": [
           {
-            "id": "dec8dfb1bae0ceb7",
+            "id": "f1e89c5058cd1bda",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "00.Index/03_Decision_Log.md",
-                "bFile": "00.Index/03_Decision_Log.md",
-                "aRef": ""
+                "file": "04_Data_Model/42_Parts_Metadata_Schema.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: 03_Decision_Log  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "42_Parts_Metadata_Schema"
             }
           }
         ]
@@ -191,8 +191,19 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cb7ba90f6f930758",
+  "active": "f1e89c5058cd1bda",
   "lastOpenFiles": [
+    "00.Index/Work_Log/2026-04-15.md",
+    "04_Data_Model/42_Parts_Metadata_Schema.md.tmp.20940.1776223615623",
+    "03_Class_Design/32_Art_Concept.md",
+    "03_Class_Design/31_Class_Silhouette.md",
+    "03_Class_Design",
+    "00.Index/Work_Log/2026-04-14.md",
+    "00.Index/Work_Log",
+    "00.Index/03_Decision_Log.md.tmp.14896.1776134318130",
+    "00.Index/03_Decision_Log.md.tmp.14896.1776134313039",
+    "00.Index/03_Decision_Log.md.tmp.14896.1776131801804",
+    "00.Index/03_Decision_Log.md.tmp.14896.1776131796616",
     "Work_Log/2026-04-13.md",
     "02_System_Architecture/25_Random_Generator_System.md",
     "04_Data_Model/42_Parts_Metadata_Schema.md",
@@ -200,13 +211,8 @@
     "00.Index/03_Decision_Log.md.tmp.7608.1776126283486",
     "02_System_Architecture/24_Color_System.md.tmp.7608.1776125514651",
     "02_System_Architecture/24_Color_System.md",
-    "02_System_Architecture/24_Color_System.md.tmp.48520.1776070270107",
-    "02_System_Architecture/26_Helmet_Handling_System.md.md.tmp.48520.1776070245577",
     "00.Index/03_Decision_Log.md",
     "00.Index/04_Open_Questions.md",
-    "02_System_Architecture/24_Color_System.md.tmp.53956.1776061017933",
-    "04_Data_Model/41_Character_Data_Schema.md.md.tmp.53956.1776061002756",
-    "00.Index/03_Decision_Log.md.tmp.53956.1776060942856",
     "무제.canvas",
     "2026-04-13.md",
     "00.Index/01_Project_Summary.md",
@@ -219,8 +225,6 @@
     "02_System_Architecture/23_Anchor_System.md.md",
     "02_System_Architecture/22_Layer_System.md.md",
     "01_Core_Design/11_Design_Principles.md",
-    "99_Archive",
-    "07_Examples",
     "start.md"
   ]
 }

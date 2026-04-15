@@ -4,7 +4,7 @@
 
 ---
 
-- FaceTemplate 수량
-- Armor 바리에이션 방식
+## Godot 프로토타입 구현 시 결정
+
 - 랜덤 생성 가중치 정책
-- Face scale 범위
+- Face scale 범위 (테스트 후 결정)

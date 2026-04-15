@@ -3,7 +3,7 @@
 ## 기본 레이어 순서
 1. BodyBase
 2. FaceBase
-3. Eyes
+3. Eyes  <!-- 눈썹 포함, 눈+눈썹 세트로 하나의 파츠 -->
 4. Nose
 5. Mouth
 6. Beard
