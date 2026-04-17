@@ -11,10 +11,14 @@
             "id": "778644771c52c7c8",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "새 탭"
+              "type": "split-diff-view",
+              "state": {
+                "aFile": ".claude/worktrees/bold-khorana",
+                "bFile": ".claude/worktrees/bold-khorana",
+                "aRef": ""
+              },
+              "icon": "diff",
+              "title": "Diff: bold-khorana  (Working Tree)"
             }
           }
         ]
@@ -189,6 +193,9 @@
   },
   "active": "778644771c52c7c8",
   "lastOpenFiles": [
+    "04_Data_Model/43_i18n_Policy.md",
+    "04_Data_Model/43_i18n_Policy.md.tmp.20940.1776233843116",
+    "Work_Log/2026-04-15.md.tmp.20940.1776233568602",
     "Work_Log/2026-04-13.md",
     "Work_Log/2026-04-14.md",
     "Work_Log/2026-04-15.md",
@@ -204,8 +211,6 @@
     "00.Index/03_Decision_Log.md.tmp.14896.1776131796616",
     "02_System_Architecture/25_Random_Generator_System.md",
     "04_Data_Model/42_Parts_Metadata_Schema.md.tmp.7608.1776126674601",
-    "00.Index/03_Decision_Log.md.tmp.7608.1776126283486",
-    "02_System_Architecture/24_Color_System.md.tmp.7608.1776125514651",
     "02_System_Architecture/24_Color_System.md",
     "00.Index/03_Decision_Log.md",
     "00.Index/04_Open_Questions.md",
