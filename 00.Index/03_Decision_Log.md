@@ -50,7 +50,7 @@
 
 구성 요소:
 
-BodyType  
+BodyTemplate  
 FaceTemplate  
 Hair (Front / Side / Back)  
 Eyes  
@@ -66,8 +66,8 @@ Helmet
 
 기본 렌더 레이어 구조는 다음과 같다.
 
-BodyBase  
-FaceBase  
+BodyTemplate  
+FaceTemplate  
 Eyes  
 Nose  
 Mouth  
@@ -89,7 +89,7 @@ Helmet_Front
 - `head.rotation_z` — Z축 미세 회전 (고개 기울기)
 
 **Godot 씬 그룹:**
-- Head Node2D 하위에 BodyBase, FaceBase, Eyes, Nose, Mouth, Beard, Helmet 포함
+- Head Node2D 하위에 BodyTemplate, FaceTemplate, Eyes, Nose, Mouth, Beard, Helmet 포함
 - Hair는 중력 표현을 위해 Head 그룹 밖 — 회전/오프셋 영향 없음
 - Armor는 몸통이므로 Head 그룹 밖
 
@@ -181,7 +181,7 @@ Hair_Back
 
 | 파츠 | 분리 여부 | 이유 |
 |---|---|---|
-| BodyType | 분리 | 체형 자체가 다름 |
+| BodyTemplate | 분리 | 체형 자체가 다름 |
 | FaceTemplate | 분리 | 얼굴 윤곽/비율이 다름 |
 | Hair | 분리 | 스타일 자체가 다름 |
 | Eyes | **공용** | 타입 선택 + scale/position으로 인상 조절 |
@@ -231,7 +231,7 @@ Hair_Back
 
 랜덤 캐릭터 생성 시 다음 요소를 사용한다.
 
-BodyType  
+BodyTemplate  
 FaceTemplate  
 Hair Style  
 Hair Color  
@@ -302,6 +302,25 @@ Helmet
 - 유지보수 불가능
 
 대신 **Rule 기반 처리 시스템** 사용.
+
+---
+
+## 2026-04-22 — Face/Body 네이밍 3박자 통일 (Template 계열)
+
+기존에 레이어 이름, 데이터 필드명, 폴더 구조 간 용어가 혼재해 파츠 구조 설계 시 혼란이 있었다.
+
+**결정 1 — FaceBase → FaceTemplate 단일화**
+- 하나의 PNG가 두 역할 수행: 앵커 마커 소스 + 피부색 렌더링 레이어
+- 마커 픽셀은 눈/코/입 파츠에 가려 렌더링에 노출되지 않으므로 한 파일로 충분
+
+**결정 2 — BodyBase / BodyType → BodyTemplate 단일화**
+- `BodyBase`(레이어명) + `bodyType`(JSON 필드) + `body_base/`(폴더)로 세 용어가 분산되어 있던 것을 `BodyTemplate` 계열로 통일
+- FaceTemplate과 동일한 네이밍 패턴: 레이어=`BodyTemplate`, 필드=`bodyTemplate`, 폴더=`body_template/`
+
+**통일 패턴 (전 파츠 공통):**
+- 레이어명(PascalCase) ↔ JSON 필드명(camelCase) ↔ 폴더명(snake_case) 삼박자 일치
+
+**영향 문서:** [[22_Layer_System]], [[24_Color_System]], [[41_Character_Data_Schema]], [[01_Project_Summary]], [[03_Decision_Log]]
 
 ---
 

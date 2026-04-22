@@ -26,7 +26,7 @@
 캐릭터는 **모듈형 파츠 조합 시스템**으로 구성된다.
 
 ```text
-BodyType
+BodyTemplate
 FaceTemplate
 Hair (Front / Side / Back)
 Eyes

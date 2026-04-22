@@ -1,8 +1,8 @@
 # Layer System
 
 ## 기본 레이어 순서
-1. BodyBase
-2. FaceBase
+1. BodyTemplate
+2. FaceTemplate
 3. Eyes  <!-- 눈썹 포함, 눈+눈썹 세트로 하나의 파츠 -->
 4. Nose
 5. Mouth
@@ -23,8 +23,8 @@ Root
 ├── Hair_Front     ← Head 그룹 밖
 │
 ├── Head (Node2D)  ← rotation_z, offset_y 적용 대상
-│   ├── BodyBase
-│   ├── FaceBase
+│   ├── BodyTemplate
+│   ├── FaceTemplate
 │   ├── Eyes
 │   ├── Nose
 │   ├── Mouth

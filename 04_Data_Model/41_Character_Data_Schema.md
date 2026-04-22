@@ -10,7 +10,7 @@
 
 ```json
 {
-  "bodyType": "male_normal",
+  "bodyTemplate": "male_normal",
   "faceTemplate": "sharp_01",
   "head": {
     "offset_y": 0,

@@ -34,7 +34,7 @@
 - 그림자: #1a1a1a 이상 (윤곽선과 구분)
 - 하이라이트: 128 이상
 
-FaceBase와 BodyBase의 피부 기본 영역이 같은 밝기값으로 통일되어야 `skin_color`를 동일하게 넣었을 때 같은 색이 나온다.
+FaceTemplate과 BodyTemplate의 피부 기본 영역이 같은 밝기값으로 통일되어야 `skin_color`를 동일하게 넣었을 때 같은 색이 나온다.
 
 ---
 
@@ -88,8 +88,8 @@ AI 생성 후 Krita에서 다음 작업이 필요하다:
 
 ## 적용 대상
 
-- FaceBase ← `skin_color` uniform
-- BodyBase ← `skin_color` uniform (FaceBase와 동일값)
+- FaceTemplate ← `skin_color` uniform
+- BodyTemplate ← `skin_color` uniform (FaceTemplate과 동일값)
 - Hair (Front / Side / Back)
 - Eyes
 - Beard
