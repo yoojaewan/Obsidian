@@ -8,6 +8,9 @@
 - beard / skinMarking / faceOverlay는 선택 파츠 — null이면 미착용
 - 좌/우 비대칭 눈은 미지원 (양쪽 동일, 한 PNG를 미러링)
 - 비대칭 표현은 faceOverlay로 처리 (안대 등)
+- 얼굴 파츠는 FaceTemplate 앵커 좌표를 기본으로 하되, `offsetX`/`offsetY`(픽셀)로 미세 조정 가능
+- beard는 X축이 캔버스 중앙 고정이므로 `offsetX` 없음, `offsetY`만 지원
+- `blackThreshold` / `whiteThreshold`는 파츠 메타 JSON 소유 (에셋 고유값). 캐릭터 JSON에 두지 않음. 기본값: black=0.04, white=0.8
 
 ## 스키마
 
@@ -30,17 +33,23 @@
   "eyes": {
     "id": "eyes_02",
     "scale": 1.1,
+    "offsetX": 0,
+    "offsetY": 0,
     "color": "#2E8B57"
   },
   "skinMarking": null,
   "nose": {
     "id": "nose_01",
-    "scale": 1.0
+    "scale": 1.0,
+    "offsetX": 0,
+    "offsetY": 0
   },
   "faceOverlay": null,
   "mouth": {
     "id": "mouth_03",
-    "scale": 1.0
+    "scale": 1.0,
+    "offsetX": 0,
+    "offsetY": 0
   },
   "beard": null,
   "armor": {

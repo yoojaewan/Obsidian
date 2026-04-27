@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "5558cab69ddd08b0",
+        "id": "b2466e7d3c8d5400",
         "type": "tabs",
         "children": [
           {
-            "id": "778644771c52c7c8",
+            "id": "c2f9a5249172d65f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "06_Production/60_Build_Roadmap.md",
-                "mode": "source",
-                "source": false
+                "aFile": "04_Data_Model/41_Character_Data_Schema.md",
+                "bFile": "04_Data_Model/41_Character_Data_Schema.md",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "60_Build_Roadmap"
+              "icon": "diff",
+              "title": "Diff: 41_Character_Data_Schema  (Working Tree)"
             }
           }
         ]
@@ -191,8 +191,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "778644771c52c7c8",
+  "active": "c2f9a5249172d65f",
   "lastOpenFiles": [
+    "02_System_Architecture/27_UI_Layout.md.tmp.35868.1777272986952",
+    "04_Data_Model/41_Character_Data_Schema.md.tmp.35868.1777271832653",
+    "04_Data_Model/41_Character_Data_Schema.md.tmp.35868.1777271039939",
+    "06_Production/60_Build_Roadmap.md",
     "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257592661",
     "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257575356",
     "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257539044",
@@ -201,9 +205,6 @@
     "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257365896",
     "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257360971",
     "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257356862",
-    "00.Index/03_Decision_Log.md.tmp.50992.1777256652417",
-    "02_System_Architecture/27_UI_Layout.md.tmp.50992.1777256641016",
-    "05_AI_Workspace/AI_HANDOFF.md.tmp.50992.1777252647080",
     "05_AI_Workspace/AI_HANDOFF.md",
     "05_AI_Workspace/AI_DIALOG.md",
     "04_Data_Model/43_i18n_Policy.md",
@@ -228,7 +229,6 @@
     "02_System_Architecture/26_Helmet_Handling_System.md.md",
     "02_System_Architecture/23_Anchor_System.md.md",
     "02_System_Architecture/22_Layer_System.md.md",
-    "01_Core_Design/11_Design_Principles.md",
-    "start.md"
+    "01_Core_Design/11_Design_Principles.md"
   ]
 }
