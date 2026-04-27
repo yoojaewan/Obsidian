@@ -12,6 +12,33 @@
 
 # Confirmed Decisions
 
+## 2026-04-27 — 얼굴 액세서리 슬롯 도입 (skinMarking / faceOverlay)
+
+- **추가 슬롯:**
+  - `skinMarking` — 주근깨/흉터/점/다크서클 등 피부 위 표시. 레이어: **Nose/Mouth 위, Eyes/Beard 아래**
+  - `faceOverlay` — 안대/마스크/외눈안경 등 눈 위 부착물. 레이어: **Hair_Back 위, Hair_Side/Hair_Front 아래** (모든 얼굴 파츠보다 위, 앞/옆머리에 가려짐)
+- **레이어 재배치:** 기존 Eyes(3)→Nose(4)→Mouth(5)→Beard(6) 순서를 Nose(3)→Mouth(4)→SkinMarking(5)→Eyes(6)→FaceOverlay(7)→Beard(8)로 변경. 이유: 코/입 외곽선 위에 주근깨가 찍히는 게 자연스러움 (피부 디테일은 얼굴 구조보다 위)
+- **다중 착용 미지원:** 각 슬롯은 단일 객체 또는 null (배열 아님). 추후 필요 시 확장 검토
+- **기존 슬롯 패턴 유지:** Hair_Front/Side/Back처럼 슬롯이 곧 레이어 위치를 결정. 파츠 메타데이터에 layer 필드 두지 않음
+- **FaceOverlay `side` 필드:** `"left"` / `"right"` / `"center"` — eye 앵커 재활용, 마스크는 중앙
+- **신규 폴더:** `assets/parts/skin_marking/`, `assets/parts/face_overlay/`
+- **반영 문서:** [[22_Layer_System]], [[41_Character_Data_Schema]]
+
+---
+
+## 2026-04-27 — 파츠 캔버스 512 → 500 변경
+
+- **변경:** 파츠 원본 PNG 크기 `512×512` → `500×500`
+- **이유:** remove.bg 무료 등급 출력 상한이 500×500. 23장 + 향후 추가 파츠 모두 동일 도구로 일괄 배경 제거하기 위해 통일.
+- **영향:**
+  - UI 미리보기: 384×384 → 375×375 (원본의 75% 유지)
+  - 썸네일: 192×192 → 187×187 (원본의 37.5% 유지)
+  - Godot 4 2D는 non-power-of-2 텍스처 성능 영향 사실상 없음
+- **반영 문서:** [[27_UI_Layout]]
+- **이관:** Work_Log 2026-04-15의 "512×512 통일" 결정은 역사적 기록으로 남김
+
+---
+
 ## System Scope
 
 - 본 프로젝트는 **2D SRPG 캐릭터 초상화 생성용 Asset Generator**이다.
@@ -330,3 +357,14 @@ Helmet
 
 - 랜덤 생성 가중치 정책
 - Face scale 범위 (테스트 후 결정)
+
+## 2026-04-27 — AI 협업 프로토콜 v1 확정
+
+- Claude Code와 Codex는 `05_AI_Workspace/AI_DIALOG.md`를 비동기 논의 공간으로 사용한다.
+- 작업 완료 후 인수인계는 `05_AI_Workspace/AI_HANDOFF.md`에 최신 항목을 위로 추가한다.
+- 확정 결정은 이 Decision Log에 기록하고, 작업 단위/상태는 `06_Production/60_Build_Roadmap.md`를 기준으로 한다.
+- 기본 레인은 Claude=기획/문서/설계 추론, Codex=구현/리팩터/구현 디테일이며 예외는 사용자가 명시한다.
+- 교차 리뷰는 매 라운드 강제가 아니라 스키마 변경, 렌더링 로직, 저장/내보내기, 대량 파일 생성, 기획-구현 불일치 위험이 있을 때 필수로 한다.
+- `AI_HANDOFF.md` 활성 엔트리가 10개를 넘으면 `05_AI_Workspace/archive/AI_HANDOFF_YYYYMM.md`로 이관한다.
+
+영향 파일: `05_AI_Workspace/AI_DIALOG.md`, `05_AI_Workspace/AI_HANDOFF.md`, `05_AI_Workspace/archive/.gitkeep`.

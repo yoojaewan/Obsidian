@@ -11,14 +11,14 @@
             "id": "778644771c52c7c8",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": ".claude/worktrees/bold-khorana",
-                "bFile": ".claude/worktrees/bold-khorana",
-                "aRef": ""
+                "file": "06_Production/60_Build_Roadmap.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: bold-khorana  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "60_Build_Roadmap"
             }
           }
         ]
@@ -193,24 +193,27 @@
   },
   "active": "778644771c52c7c8",
   "lastOpenFiles": [
+    "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257592661",
+    "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257575356",
+    "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257539044",
+    "00.Index/03_Decision_Log.md.tmp.50992.1777257499377",
+    "04_Data_Model/41_Character_Data_Schema.md.tmp.50992.1777257386400",
+    "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257365896",
+    "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257360971",
+    "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257356862",
+    "00.Index/03_Decision_Log.md.tmp.50992.1777256652417",
+    "02_System_Architecture/27_UI_Layout.md.tmp.50992.1777256641016",
+    "05_AI_Workspace/AI_HANDOFF.md.tmp.50992.1777252647080",
+    "05_AI_Workspace/AI_HANDOFF.md",
+    "05_AI_Workspace/AI_DIALOG.md",
     "04_Data_Model/43_i18n_Policy.md",
-    "04_Data_Model/43_i18n_Policy.md.tmp.20940.1776233843116",
-    "Work_Log/2026-04-15.md.tmp.20940.1776233568602",
     "Work_Log/2026-04-13.md",
     "Work_Log/2026-04-14.md",
     "Work_Log/2026-04-15.md",
     "04_Data_Model/42_Parts_Metadata_Schema.md",
-    "04_Data_Model/42_Parts_Metadata_Schema.md.tmp.20940.1776223615623",
     "03_Class_Design/32_Art_Concept.md",
     "03_Class_Design/31_Class_Silhouette.md",
-    "03_Class_Design",
-    "00.Index/Work_Log",
-    "00.Index/03_Decision_Log.md.tmp.14896.1776134318130",
-    "00.Index/03_Decision_Log.md.tmp.14896.1776134313039",
-    "00.Index/03_Decision_Log.md.tmp.14896.1776131801804",
-    "00.Index/03_Decision_Log.md.tmp.14896.1776131796616",
     "02_System_Architecture/25_Random_Generator_System.md",
-    "04_Data_Model/42_Parts_Metadata_Schema.md.tmp.7608.1776126674601",
     "02_System_Architecture/24_Color_System.md",
     "00.Index/03_Decision_Log.md",
     "00.Index/04_Open_Questions.md",

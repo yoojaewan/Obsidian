@@ -16,7 +16,7 @@ AI에게 순차적으로 프롬프트를 전달해 프로젝트를 제작하기 
 
 ## Phase 1 — 기반 다지기
 
-### [ ] 1단계. 프로젝트 뼈대 & 폴더 구조
+### [x] 1단계. 프로젝트 뼈대 & 폴더 구조
 
 **프롬프트:**
 > 기획 문서 기준으로 `assets/parts/`, `data/characters/`, `data/strings/`, `scripts/`, `scenes/`, `shaders/` 폴더 구조와 빈 `project.godot` 정리해줘.
@@ -28,10 +28,15 @@ AI에게 순차적으로 프롬프트를 전달해 프로젝트를 제작하기 
 **📚 학습:** 없음
 
 **진행 로그:**
-- 시작일:
-- 완료일:
+- 시작일: 2026-04-22
+- 완료일: 2026-04-22
 - 커밋 해시:
+  - Godot: `2f7ed27` (claude/cool-gauss-413d41)
+  - Obsidian: `c557259` (master)
 - 이슈:
+  - FaceBase vs FaceTemplate 용어 혼용 발견 → FaceTemplate으로 통일
+  - BodyBase/BodyType/bodyType/body_base 4가지 표기 혼재 발견 → BodyTemplate 계열로 통일
+  - "레이어명(PascalCase) ↔ JSON 필드(camelCase) ↔ 폴더(snake_case) 3박자 일치" 원칙 수립 (Decision Log 2026-04-22 참조)
 
 ---
 
