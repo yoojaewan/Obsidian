@@ -5,6 +5,33 @@
 
 ---
 
+## 2026-04-29 11:30 — 앵커 마커 단순화 (hair/helmet 통합 → headwear) by Claude
+
+**Step:** Roadmap N/A (스키마/설계 변경)
+
+**배경:** 사용자 결정 — 기존 3개 Y-only 마커(hair_front #FF00FF, hair_side/back #00FFFF, helmet #FF8000)는 모두 Y만 쓰고 캐릭터별 offset/scale fine-tune이 들어가므로 단일 정수리 마커로 충분. 마커 7→5로 줄어 face_template 제작 부담 감소.
+
+**새 마커 사양:**
+- `headwear` = #FF00FF (마젠타) at 정수리 1픽셀
+- 용도: Hair_Front, Hair_Side, Hair_Back, Helmet 모두 공용 baseline Y
+
+**변경/생성 파일:**
+- (Godot `5589d96`, master에 ff-merge 완료) `asset-generater/scripts/character_view.gd` — `ANCHOR_MARKERS` 7→5, `_setup_hair` 3개 모두 `headwear` Y 사용, `_setup_helmet` 도 동일
+- (Godot `5589d96`) `asset-generater/scripts/tools/generate_templates.gd` — 부트스트랩 마커 5개로, headwear offset (0, -180)
+
+**기획 문서 갱신 (사용자 직접 — "문서가 진실" 원칙):**
+- ⚠️ `02_System_Architecture/22_Layer_System.md` — "Anchor System" 섹션 마커 표 5개로 축소
+- ⚠️ `02_System_Architecture/23_Anchor_System.md` — "마커 색상 규칙" 섹션 5개로, "주요 Anchor"에서 Hair/Helmet 항목 통합
+- 권장: `00.Index/03_Decision_Log.md`에 `2026-04-29 — 앵커 마커 hair/helmet 통합 결정` 항목 추가
+
+**미해결 질문:** 없음
+
+**리뷰 필요:** yes — 트리거: schema 변경 (앵커 시스템 마커 정의). Codex가 char_knight_01.json 등 캐릭터 데이터에 영향 없는지(없음, 마커는 face_template asset에만 박힘) + 기획 문서 동기화 검증.
+
+**다음 담당:** User — 위 ⚠️ 기획 문서 2건 직접 수정. 그 후 Codex가 리뷰. 진행 중인 face_template/sharp_01.png Krita 작업도 마커 5개만 박으면 됨 (기존 3개 hair/helmet 마커 위치엔 박지 말 것).
+
+---
+
 ## 2026-04-29 10:58 — Roadmap Step 4·5 통합 진행 + 부트스트랩 템플릿 스크립트 by Claude
 
 **Step:** Roadmap 4·5단계 (통합 진행) — 사용자가 명시적으로 implementation 위임
