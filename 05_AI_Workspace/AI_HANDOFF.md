@@ -5,6 +5,24 @@
 
 ---
 
+## 2026-04-29 15:00 — generate_templates.gd 제거 (footgun) by Claude
+
+**Step:** Roadmap 4·5 후속 정리
+
+**배경:** 부트스트랩 PNG 생성 스크립트(`generate_templates.gd`)가 사용자가 만든 진짜 face/body PNG를 실수로 덮어쓰는 사고 발생. AI가 이전 메시지에서 *"스킵해도 됨"* 경고와 함께 *"Ctrl+Shift+X로 실행"* 지시를 같이 넣어 사용자 혼동 → 실행 → 진짜 에셋 손실. 사용자가 직접 PNG 다시 복원함.
+
+**조치:**
+- (Godot `1e30742`, master ff-merge 완료) `asset-generater/scripts/tools/generate_templates.gd` 삭제 + 빈 `tools/` 폴더 제거
+- 향후 부트스트랩 필요 시 git history(32c6526)에서 복원 가능
+
+**미해결 질문:** 없음
+
+**리뷰 필요:** no — 단순 제거. 진행 중인 작업에 영향 없음 (실제 에셋 사용 중).
+
+**다음 담당:** User — character_view.tscn 시각 검증 재시도 (4·5 ✋ 검증). 통과 시 6단계.
+
+---
+
 ## 2026-04-29 14:05 — 실제 face/body 에셋 검증 + 스캐너 단순화 유지 by Claude
 
 **Step:** Roadmap 4·5 검증 후속
