@@ -5,6 +5,51 @@
 
 ---
 
+## 2026-04-29 12:10 — 캐릭터 JSON 스키마 일관화: scale 전 파츠 + bodyTemplate/faceTemplate 객체 승격 by Claude
+
+**Step:** Roadmap N/A (스키마 변경)
+
+**배경:** 사용자 검토에서 파츠 간 scale 일관성 문제 발견. 4개 파츠(bodyTemplate/faceTemplate/skinMarking/faceOverlay)가 scale 누락. 추가로 bodyTemplate/faceTemplate은 객체가 아닌 단순 id 문자열이라 다른 파츠와 구조 불일치. 캐릭터별 비율 다양화는 head.scale + 파츠별 scale 곱셈 합성으로 처리.
+
+**스키마 변경 (캐릭터 JSON):**
+```json
+"bodyTemplate": "male_normal"
+↓
+"bodyTemplate": { "id": "male_normal", "scale": 1.0 }
+
+"faceTemplate": "sharp_01"
+↓
+"faceTemplate": { "id": "sharp_01", "scale": 1.0 }
+
+"head": { "offsetY": 0, "rotationZ": 0.0 }
+↓
+"head": { "offsetX": 0, "offsetY": 0, "scale": 1.0, "rotationZ": 0.0 }
+
+"skinMarking": { "id": "...", "color": "..." }
+↓
+"skinMarking": { "id": "...", "scale": 1.0, "color": "..." }
+
+"faceOverlay": { "id": "...", "side": "...", "color": "..." }
+↓
+"faceOverlay": { "id": "...", "side": "...", "scale": 1.0, "color": "..." }
+```
+
+**변경/생성 파일:**
+- (Godot `45219e7`, master에 ff-merge 완료) `asset-generater/data/characters/char_knight_01.json` — 신스키마 적용
+- (Godot `45219e7`) `asset-generater/scripts/character_view.gd` — `_get_obj()` 헬퍼 추가, faceTemplate/bodyTemplate 객체 접근, head.scale + offsetX 적용, faceOverlay scale 반영
+
+**기획 문서 갱신 (사용자 직접):**
+- ⚠️ `04_Data_Model/41_Character_Data_Schema.md` — 스키마 예시 갱신 (위 5개 변경 반영)
+- 권장: `00.Index/03_Decision_Log.md`에 `2026-04-29 — 모든 파츠 scale 일관화 + 템플릿 객체 승격` 항목
+
+**미해결 질문:** 없음
+
+**리뷰 필요:** yes — 트리거: schema 변경 (캐릭터 JSON 구조). Codex가 다른 캐릭터 JSON 추가될 때 신스키마 따르는지 + 41 문서 동기화 검증.
+
+**다음 담당:** User — 41 스키마 문서 직접 갱신. 추가 캐릭터 JSON 만들 때 신스키마 사용. 그 후 Codex 리뷰.
+
+---
+
 ## 2026-04-29 11:30 — 앵커 마커 단순화 (hair/helmet 통합 → headwear) by Claude
 
 **Step:** Roadmap N/A (스키마/설계 변경)
