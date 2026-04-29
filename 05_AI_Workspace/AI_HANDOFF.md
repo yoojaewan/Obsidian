@@ -5,24 +5,24 @@
 
 ---
 
-## 2026-04-29 13:50 — 앵커 스캐너 centroid 방식 + 실제 face/body 에셋 검증 by Claude
+## 2026-04-29 14:05 — 실제 face/body 에셋 검증 + 스캐너 단순화 유지 by Claude
 
 **Step:** Roadmap 4·5 검증 후속
 
-**배경:** 사용자가 face_template/sharp_01.png + body_template/male_normal.png 실제 에셋 추가 (AI 생성 → Krita 마커 박음). 검증 과정에서 사용자가 일부러 2px 클러스터로 마커 찍어 스캐너 견고성 테스트. 기존 "top-left 첫 픽셀 사용" 방식은 클러스터 형태/크기에 따라 0.5~1px 오프셋 발생 → centroid 방식으로 개선.
+**배경:** 사용자가 face_template/sharp_01.png + body_template/male_normal.png 실제 에셋 추가 (AI 생성 → Krita 마커 박음). 사용자가 2px 클러스터로 마커 찍어 스캐너 동작 확인. centroid 방식을 잠깐 시도했으나(`2b0e7d2`) 사용자 판단으로 **오버스펙으로 되돌림(`fc058d7`)** — 1픽셀 마커가 사양/계약이고 브러시 정확도는 사용자 책임.
 
 **검증 결과 (사용자 sharp_01.png):**
-- 5개 마커 모두 인식, centroid 값 깔끔 (eye_l/r Y가 정확히 일치)
-- 비율: 정수리→눈 195px, 눈→코 57px, 코→입 65px (자연스러움)
-- file size: face 70KB, body 137KB (face 정상, body 약간 큼 — tinypng 선택)
+- 5개 마커 모두 인식 (현 top-left 방식: eye_l(-68,-33), eye_r(+65,-33) 1px shift, nose(-1,+24), mouth(-1,+89), headwear(+2,-228))
+- 비율 자연스러움 (정수리→눈 195px, 눈→코 57px, 코→입 65px)
+- 파일 사이즈: face 70KB, body 137KB (body는 tinypng 선택사항)
 
 **변경/생성 파일:**
-- (Godot `2b0e7d2`, master ff-merge 완료) `asset-generater/scripts/character_view.gd` — `_scan_anchors` centroid 계산으로 변경 (sum/count 누적)
+- (Godot `fc058d7`, master ff-merge 완료) `asset-generater/scripts/character_view.gd` — `_scan_anchors` 그대로 좌상→우하 첫 매칭 (중간에 centroid 시도했으나 revert)
 - 자산 (사용자가 main 프로젝트에 직접 추가): `assets/parts/face_template/sharp_01.png`, `assets/parts/body_template/male_normal.png`
 
 **미해결 질문:** 없음
 
-**리뷰 필요:** no — 기존 1px 마커엔 동작 차이 없음, 클러스터 마커 견고성만 개선.
+**리뷰 필요:** no — 코드 변화는 결과적으로 없음 (try → revert).
 
 **다음 담당:** User — Godot 에디터에서 character_view.tscn 씬 실행해서 실물 합성 확인. 4·5단계 검증 포인트 ✋ 충족 여부 (눈/코/입 마커 위치에 플레이스홀더가 붙는지) 보고. 통과 시 6단계 진행.
 
