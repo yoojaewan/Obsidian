@@ -5,6 +5,72 @@
 
 ---
 
+## 2026-04-30 — 파츠 PNG 캔버스 컨벤션 확정 + face=200×200 baseline 의사결정 by Claude
+
+**Step:** Roadmap 4·5 후속 (사이즈 컨벤션 확정), 8단계 베이크 패턴 사전 설계
+
+**배경:** 2026-04-29 풀사이즈 eye 사고("얼굴이 눈보다 큰 괴물")의 근본 원인 = 파츠 PNG 캔버스 컨벤션 미명시. 사용자 검토 통해 **실사이즈 캔버스 + 캔버스 중심=부위 중심** 컨벤션으로 정정. face_template/body_template만 고정 사이즈.
+
+**확정 결정사항:**
+
+1. **파츠 PNG 캔버스 — 실사이즈 (500×500 통일 폐기)**
+   - 캔버스 = 그 파츠의 바운딩 박스 = "범위 템플릿"
+   - 필수: 캔버스 중심 = 부위 정렬 기준점 (Sprite2D `centered=true` 와 결합)
+   - 외곽선 두께 **≥2px** (linear 보간 안전 마진. 1px는 미세 스케일도 위험)
+
+2. **고정 사이즈:**
+   - **face_template = 200×200** (사실 비율 baseline, 머리:어깨 ≈ 1:2.5)
+   - **body_template = 500×500** (어깨~허리)
+   - 사용자 의도: 초상화는 사실 비율, SD/귀여움은 별도 face_template asset로 처리
+   - 캐릭터별 미세 비율 조정은 head.scale 0.9~1.1 (외곽선 2px 전제)
+
+3. **부위별 권장 사이즈 (face 200 기준):**
+   - eye(각) **40×40 정사각형** (눈+눈썹 통합 — 22_Layer_System 9행)
+   - nose 16×32, mouth 40×16, beard 72×48
+   - **마커 의미 재정의:** 마커 = 부위 PNG 캔버스 중심의 정렬 기준점 (해부학적 중심 X). 코드는 `centered=true` 라 PNG 캔버스 중심을 마커 좌표에 둘 뿐. 사용자가 마커 박을 때 "이 위치에 부위 PNG 통째로 와야 한다" 로 판단
+   - skin_marking ~50×25, face_overlay ~60×24
+   - hair_front ~104×80, hair_side ~112×112, hair_back ~128×128, helmet ~112×104
+   - armor 500×500
+
+4. **face_template 200×200 마커 좌표 (좌상단=0,0):**
+   - eye_l(73,87) #FF0000  /  eye_r(126,87) #00FF00
+   - nose(100,110) #0000FF  /  mouth(100,136) #FFFF00
+   - headwear(101,9) #FF00FF
+   - ⚠️ 위는 sharp_01 0.4배 시작점. 새 일러스트의 실제 부위 위치에 맞춰 박을 것
+
+5. **AI 생성 워크플로우 (200 함정 회피):**
+   - 512×512 큰 캔버스로 AI 생성 → Krita 200으로 다운샘플 → Threshold 필터로 외곽선 강제 검정화 → 마커 1px 박기
+
+6. **8단계 베이크 패턴 사전 설계 (구현은 8단계):**
+   - 셰이더 외곽선 제약을 근본 우회
+   - 패턴: SubViewport per part → 셰이더 적용 결과를 ImageTexture로 베이크 → Sprite2D에 할당
+   - 색 변경 → 해당 파츠 재베이크 / 스케일·회전 → 변환만 갱신 (베이크 그대로)
+   - Head 그룹의 다같이 늘어나고 회전은 Godot 부모-자식 트랜스폼 상속으로 자동 보장
+   - face_template 베이크 시 마커 픽셀 마스킹 필요 (`_scan_anchors` 후)
+   - head.scale ≥1.5 SD 자유 표현 가능해짐
+
+**변경/생성 파일:** 없음 (의사결정 + 메모리 갱신만)
+
+**기획 문서 갱신 필요 (사용자 직접 — "문서가 진실"):**
+- ⚠️ [42_Parts_Metadata_Schema](F:\opsidian\git_obsidian\04_Data_Model\42_Parts_Metadata_Schema.md) — 캔버스 컨벤션 + 부위별 권장 사이즈 표 추가
+- ⚠️ [24_Color_System](F:\opsidian\git_obsidian\02_System_Architecture\24_Color_System.md) — 외곽선 두께 ≥2px 컨벤션 명시, AI 생성 워크플로우(다운샘플+Threshold) 추가
+- ⚠️ [23_Anchor_System](F:\opsidian\git_obsidian\02_System_Architecture\23_Anchor_System.md) — face_template 사이즈 200×200 + 마커 절대 좌표 명시
+- 권장: `00.Index/03_Decision_Log.md` 항목 `2026-04-30 — face=200×200 baseline + 외곽선 2px + 8단계 베이크 패턴 결정`
+
+**미해결 질문:** 없음
+
+**리뷰 필요:** yes — 트리거: schema/컨벤션 변경 + 큰 아키텍처 결정(베이크 패턴). Codex가 8단계 진입 시 베이크 패턴 설계 검토 필요.
+
+**다음 담당:** User — 위 작업 순서대로 이미지 재제작:
+1. eyes_sharp_01.png 삭제/백업 (풀사이즈 잘못된 에셋)
+2. face_template/sharp_01.png 200×200 재제작 + 마커 5개
+3. eyes/eyes_sharp_01.png 32×20 재제작
+4. Godot character_view.tscn 시각 검증
+5. 통과 후 나머지 부위 PNG 점진 제작
+검증 통과 시 Claude가 `character_view.gd` PART_IMAGE_SIZE 상수/플레이스홀더 정리 + 6단계(헬멧 룰) 진행.
+
+---
+
 ## 2026-04-29 15:00 — generate_templates.gd 제거 (footgun) by Claude
 
 **Step:** Roadmap 4·5 후속 정리
