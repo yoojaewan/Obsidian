@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "b2466e7d3c8d5400",
+        "id": "03be8ff68ba5082c",
         "type": "tabs",
         "children": [
           {
-            "id": "c2f9a5249172d65f",
+            "id": "277bab777381e4e7",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "00.Index/03_Decision_Log.md",
-                "bFile": "00.Index/03_Decision_Log.md",
-                "aRef": ""
+                "file": "04_Data_Model/43_i18n_Policy.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: 03_Decision_Log  (Working Tree)"
+              "icon": "lucide-file",
+              "title": "43_i18n_Policy"
             }
           }
         ]
@@ -191,20 +191,20 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cb7ba90f6f930758",
+  "active": "277bab777381e4e7",
   "lastOpenFiles": [
+    "04_Data_Model/42_Parts_Metadata_Schema.md.tmp.79980.1777546012461",
+    "02_System_Architecture/24_Color_System.md.tmp.79980.1777545790327",
+    "02_System_Architecture/23_Anchor_System.md.tmp.79980.1777545770854",
+    "06_Production/60_Build_Roadmap.md",
+    "05_AI_Workspace/AI_HANDOFF.md.tmp.79980.1777545459208",
+    "06_Production/60_Build_Roadmap.md.tmp.79980.1777545378608",
     "05_AI_Workspace/AI_HANDOFF.md.tmp.84428.1777441874005",
     "05_AI_Workspace/AI_HANDOFF.md.tmp.84428.1777441713189",
     "06_Production/60_Build_Roadmap.md.tmp.84428.1777427647151",
     "02_System_Architecture/27_UI_Layout.md.tmp.35868.1777272986952",
     "04_Data_Model/41_Character_Data_Schema.md.tmp.35868.1777271832653",
     "04_Data_Model/41_Character_Data_Schema.md.tmp.35868.1777271039939",
-    "06_Production/60_Build_Roadmap.md",
-    "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257592661",
-    "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257575356",
-    "02_System_Architecture/22_Layer_System.md.tmp.50992.1777257539044",
-    "00.Index/03_Decision_Log.md.tmp.50992.1777257499377",
-    "04_Data_Model/41_Character_Data_Schema.md.tmp.50992.1777257386400",
     "05_AI_Workspace/AI_HANDOFF.md",
     "05_AI_Workspace/AI_DIALOG.md",
     "04_Data_Model/43_i18n_Policy.md",

@@ -5,6 +5,73 @@
 
 ---
 
+## 2026-04-30 — Roadmap 5단계 검증 통과 + 캔버스 컨벤션 200 baseline 적용 + Hair 시스템 정비 by Claude
+
+**Step:** Roadmap 4·5단계 검증 ✅ 완전 통과 (다음 6단계)
+
+**배경:** 4월 29일 풀사이즈 eye 사고 후속. 캔버스 컨벤션 확정 → 사용자가 이미지 7종 재제작/신규 제작 → 합성 검증 + 코드/씬 정비를 거쳐 5단계 통과.
+
+**최종 결정사항 (200 baseline 적용):**
+
+1. **파츠 PNG 캔버스 컨벤션:**
+   - **face_template = 200×200 고정**, **body_template = 500×500 고정**, 머리:어깨 ≈ 1:2.5 사실 비율
+   - 그 외 파츠 = **실사이즈 캔버스** (디자인 바운딩 박스), 캔버스 중심 = 부위 정렬 기준점
+   - 외곽선 ≥2px (셰이더 안전, 미세 스케일 허용)
+   - 마커 의미 = "부위 PNG 캔버스 중심이 와야 할 위치" (해부학적 중심 X — 디자이너 자유)
+   - eye 40×40 정사각형 (눈+눈썹 통합), beard 200×100, nose 16×32, mouth 40×16
+
+2. **Hair 시스템 (별도 컨벤션):**
+   - 캔버스 사이즈 권장값 없음 (디자인 다양성 큼) — **자유**
+   - 컨벤션: ① **캔버스 상단(Y=0) = 정수리**, ② **캔버스 X중앙 = 정수리 X**, ③ 외곽선 ≥2px
+   - 코드: `Sprite2D.offset.y = height/2` 로 텍스처 상단을 sprite position(=정수리)에 정렬. centered=true 유지로 scale 기준점도 정수리
+   - 위로 솟는 디자인(산다라박류)은 보정 필요 — `hair.offsetY` 음수 (필드 추가됨)
+
+3. **레이어 z-order 변경:**
+   - **Hair_Back z_index 8 → 0** (Body z=1, Face z=2 뒤로). 자연스러운 뒷머리
+   - **BodyTemplate parent: "Head" → "."** (Head 그룹 밖). 에셋 생성기에서 머리/몸 별도 조정 가능 (head.offsetY로 머리만 위로). 22_Layer_System의 트리는 *합성 순서* 관점, *편집 시 트리* 는 별개로 해석
+
+4. **캐릭터 JSON 스키마 추가:**
+   - `hair.offsetX/Y` 공통 필드 (Hair 3종 같이 이동, 산다라박류 보정)
+
+5. **AI 생성 워크플로우 (200 함정 회피):**
+   - 512×512 큰 캔버스로 AI 생성 → Krita에서 200으로 다운샘플 → Threshold 필터로 외곽선 강제 검정화 → 마커 1px 박기
+
+6. **8단계 베이크 패턴 사전 설계 (구현은 8단계):**
+   - SubViewport per part → 셰이더 적용 결과를 ImageTexture로 베이크 → Sprite2D에 할당
+   - 셰이더 외곽선 제약 근본 우회. head.scale ≥1.5 SD 자유 표현 가능
+   - 색 변경 → 해당 파츠 재베이크 / 스케일·회전 → 변환만 갱신 (베이크 그대로)
+   - face_template 베이크 시 마커 픽셀 마스킹 필요 (`_scan_anchors` 후)
+
+**변경/생성 파일 (메인 레포 직접 수정 — 워크트리 우회. 사용자 명시 승인):**
+
+- `assets/parts/face_template/sharp_01.png` — 500×500 → 200×200 재제작 (사용자, AI 생성 + Threshold)
+- `assets/parts/eyes/eyes_sharp_01.png` — 풀사이즈 → 40×40 정사각형 재제작 (사용자)
+- `assets/parts/nose/nose_straight_01.png` — 신규 (사용자)
+- `assets/parts/mouth/mouth_thin_01.png` — 신규 (사용자)
+- `assets/parts/beard/beard_light_01.png` — 신규 (사용자, 200×100)
+- `assets/parts/hair_front/hair_front_short_01.png` — 신규 (사용자, 단발)
+- `assets/parts/hair_side/hair_side_short_01.png` — 신규 (사용자, 단발)
+- `assets/parts/hair_back/hair_back_short_01.png` — 신규 (사용자, 단발)
+- `scripts/character_view.gd` — 플레이스홀더 폐기 (PART_IMAGE_SIZE/PLACEHOLDER_DEFS/_make_placeholder 제거), `_assign_texture` PNG 없으면 visible=false, `_setup_hair` offset.y=h/2 컨벤션 + head 변환 보정 (회전 제외) + hair_pos 인자, `$Head/BodyTemplate` → `$BodyTemplate`, `_ready` 의 position 강제 설정 제거
+- `scenes/character_view.tscn` — BodyTemplate parent="Head" → "." (z=1 유지), Hair_Back z=8 → 0, CharacterView.position 씬 직접 설정 가능
+- `data/characters/char_knight_01.json` — head.offsetY=-230, eyes.offsetX=5, hair.offsetX/Y 필드 추가, hair.offsetY=-60, nose/mouth/beard 미세 조정값
+
+**기획 문서 갱신 (Claude 작업 — 2026-04-30 사용자 명시: Obsidian=AI 기억 보조, 기획 문서도 AI lane):**
+- [22_Layer_System](F:\opsidian\git_obsidian\02_System_Architecture\22_Layer_System.md) — Hair_Back layer 0, BodyTemplate Head 그룹 밖 (편집 트리 vs 합성 순서 컨텍스트 구분)
+- [23_Anchor_System](F:\opsidian\git_obsidian\02_System_Architecture\23_Anchor_System.md) — face_template = 200×200 고정 명시, 마커 좌표 (좌상단 기준) 표
+- [24_Color_System](F:\opsidian\git_obsidian\02_System_Architecture\24_Color_System.md) — 외곽선 두께 ≥2px 컨벤션, AI 생성 워크플로우 (다운샘플+Threshold) 추가
+- [41_Character_Data_Schema](F:\opsidian\git_obsidian\04_Data_Model\41_Character_Data_Schema.md) — hair.offsetX/Y 필드 추가
+- [42_Parts_Metadata_Schema](F:\opsidian\git_obsidian\04_Data_Model\42_Parts_Metadata_Schema.md) — 캔버스 컨벤션 (실사이즈 + 캔버스 중심=부위 중심, hair는 캔버스 상단=정수리), 부위별 권장 사이즈 표
+- `00.Index/03_Decision_Log.md` 한 줄 추가: `2026-04-30 — face=200×200 baseline + hair 캔버스 상단=정수리 컨벤션 + Hair_Back layer 0 + hair.offsetX/Y 공통 필드 추가 + Obsidian=AI 기억 보조 원칙 명시`
+
+**미해결 질문:** 없음
+
+**리뷰 필요:** yes — 트리거: 다수 schema 변경 (캐릭터 JSON, 파츠 PNG 컨벤션, 레이어 시스템) + rendering logic 변경 + 큰 아키텍처 결정(8단계 베이크 패턴 설계). Codex가 6단계 진입 전 위 문서 6건 동기화 검증 + 8단계 베이크 패턴 설계 검토.
+
+**다음 담당:** User — (1) 메인 레포 커밋 (사용자 직접 진행), (2) 6단계(헬멧 룰 4종) 진행 승인. Claude는 위 기획 문서 6건 갱신 + 6단계 코드 작업 대기.
+
+---
+
 ## 2026-04-30 — 파츠 PNG 캔버스 컨벤션 확정 + face=200×200 baseline 의사결정 by Claude
 
 **Step:** Roadmap 4·5 후속 (사이즈 컨벤션 확정), 8단계 베이크 패턴 사전 설계

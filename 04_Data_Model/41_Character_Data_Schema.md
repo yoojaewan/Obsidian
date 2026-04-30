@@ -10,6 +10,9 @@
 - 비대칭 표현은 faceOverlay로 처리 (안대 등)
 - 얼굴 파츠는 FaceTemplate 앵커 좌표를 기본으로 하되, `offsetX`/`offsetY`(픽셀)로 미세 조정 가능
 - beard는 X축이 캔버스 중앙 고정이므로 `offsetX` 없음, `offsetY`만 지원
+- 모든 파츠에 `scale` 필드 — 일관성. bodyTemplate / faceTemplate 도 객체로 (id + scale)
+- `head.scale` 미세 범위 0.9~1.1 권장 (외곽선 ≥2px 전제 안전 마진). SD/귀여운 캐릭터는 별도 face_template asset (큰 캔버스로 머리 크게) 사용
+- hair 는 3종(front/side/back) 같이 이동하는 공통 `offsetX`/`offsetY` 보유 (산다라박류 위로 솟는 디자인 보정)
 - `blackThreshold` / `whiteThreshold`는 파츠 메타 JSON 소유 (에셋 고유값). 캐릭터 JSON에 두지 않음. 기본값: black=0.04, white=0.8
 
 ## 스키마
@@ -17,10 +20,18 @@
 ```json
 {
   "nameKey": "character.char_knight_01.name",
-  "bodyTemplate": "male_normal",
-  "faceTemplate": "sharp_01",
+  "bodyTemplate": {
+    "id": "male_normal",
+    "scale": 1.0
+  },
+  "faceTemplate": {
+    "id": "sharp_01",
+    "scale": 1.0
+  },
   "head": {
-    "offsetY": 0,
+    "offsetX": 0,
+    "offsetY": -230,
+    "scale": 1.0,
     "rotationZ": 0.0
   },
   "hair": {
@@ -28,6 +39,8 @@
     "side": "hair_side_02",
     "back": "hair_back_04",
     "scale": 1.0,
+    "offsetX": 0,
+    "offsetY": 0,
     "color": "#8B4513"
   },
   "eyes": {
@@ -65,6 +78,32 @@
   }
 }
 ```
+
+## 필드 상세
+
+### head
+- `offsetX` / `offsetY` (정수, 픽셀): 머리(Head 그룹) 의 X/Y 위치. body 캔버스(500×500) 위에 머리 위치 결정. 일반적으로 offsetY 음수 (-230 정도) 로 머리를 body 위쪽에 정렬
+- `scale` (float, 0.9~1.1): 머리 크기 미세 조정. 외곽선 ≥2px 전제 시 안전 범위
+- `rotationZ` (float, 라디안): 머리 갸웃 회전. Hair는 따라가지 않음 (중력)
+
+### hair
+- `front` / `side` / `back` (string): 각각 hair_front/, hair_side/, hair_back/ 폴더의 파츠 id
+- `scale` (float): 3종 모두 같이 적용. head.scale 과 곱셈 합성
+- `offsetX` / `offsetY` (정수): 3종 모두 같이 이동. 산다라박류 위로 솟는 디자인 보정 등에 사용 (default 0)
+- `color` (#RRGGBB): 머리카락 주 컬러
+
+### eyes
+- `offsetX` 는 좌우 대칭 동작 — 양수면 양 눈 멀어짐, 음수면 가까워짐 (사이 거리 조절)
+- `offsetY` 는 양쪽 같이 위/아래
+
+### bodyTemplate / faceTemplate
+- 4-29 결정: 단순 문자열에서 `{id, scale}` 객체로 승격 — 다른 파츠와 구조 일관
+
+### skinMarking / faceOverlay
+- 단일 또는 null. scale 필드 보유
+
+### skin_color (미해결 — 추후 추가 예정)
+현재 코드는 `DEFAULT_SKIN_COLOR = #E8B894` 상수 사용. FaceTemplate / BodyTemplate / Nose / Mouth는 24_Color_System 상 `skin_color` uniform 사용 대상이지만 캐릭터 JSON 필드 부재. 향후 `head.skinColor` 또는 root `skinColor` 필드로 추가 검토.
 
 ## 선택 슬롯 사용 예
 

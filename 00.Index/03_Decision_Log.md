@@ -12,6 +12,48 @@
 
 # Confirmed Decisions
 
+## 2026-04-30 — 캔버스 컨벤션 200 baseline + Hair 시스템 정비 + Obsidian = AI 기억 보조
+
+**캔버스 컨벤션:**
+- **face_template = 200×200 고정**, body_template = 500×500 고정. 머리:어깨 ≈ 1:2.5 사실 비율
+- 그 외 파츠 = 실사이즈 캔버스 + **캔버스 중심 = 부위 정렬 기준점** (Sprite2D `centered=true` 와 결합)
+- 마커 의미 = "부위 PNG 캔버스 중심이 와야 할 위치" (해부학적 중심 X — 디자이너 자유)
+- 외곽선 두께 **≥2px** — 미세 스케일(0.9~1.1) 안전 마진. 셰이더 외곽선 인식 보장
+- 부위별 권장 사이즈: eye 40×40 정사각형(눈+눈썹 통합), nose 16×32, mouth 40×16, beard 200×100, etc.
+
+**Hair 별도 컨벤션:**
+- 캔버스 사이즈 자유 (디자인 다양성)
+- ① **캔버스 상단(Y=0) = 정수리**, ② 캔버스 X중앙 = 정수리 X, ③ 외곽선 ≥2px
+- 위로 솟구치는 디자인은 `hair.offsetY` 음수 보정
+
+**레이어 변경:**
+- **Hair_Back z_index 8 → 0** (Body, Face 뒤로 — 자연스러운 뒷머리)
+- **BodyTemplate parent: "Head" → "."** (Head 그룹 밖). 에셋 생성기 단계에서 머리/몸 별도 조정 (head.offsetY 머리만)
+- 22_Layer_System 의 트리 그림은 *편집 시 트리* — *합성 순서 (z_index)* 와 별개로 해석
+
+**캐릭터 JSON 스키마:**
+- `hair.offsetX/Y` 공통 필드 추가 (Hair 3종 같이 이동)
+- `bodyTemplate / faceTemplate` 단순 문자열 → `{id, scale}` 객체로 (4-29 미반영분 정리)
+- `head.offsetX, scale` 추가, `skinMarking.scale, faceOverlay.scale` 추가 (4-29 미반영분 정리)
+
+**8단계 베이크 패턴 사전 설계 (구현은 8단계):**
+- SubViewport per part → 셰이더 결과 ImageTexture 베이크 → Sprite2D 할당
+- 셰이더 외곽선 제약 근본 우회. head.scale ≥1.5 SD 자유 표현 가능
+- 색 변경 → 해당 파츠 재베이크 / 스케일·회전 → 변환만 갱신
+- Roadmap 8단계(UI ↔ 렌더링 연결) 진입 시 컬러 슬라이더와 동시 도입
+
+**AI 생성 워크플로우 (작은 파츠 함정 회피):**
+512×512 큰 캔버스 AI 생성 → Krita 다운샘플 → Threshold 필터 외곽선 강제 검정화 → 마커 박기
+
+**Obsidian = AI 기억 보조 원칙 명시:**
+- 사용자는 Obsidian 볼트를 직접 보고 작업할 의도 없음 — 필요 정보는 AI에게 물어봐서 가져옴
+- 따라서 **기획 문서 갱신/유지보수 = AI lane**. 이전 메모리/문서의 "기획 문서 = 사용자 직접" 추측은 사용자 명시 결정 아님 — 폐기됨
+- 영향: 60_Build_Roadmap "진행 원칙" 갱신, AI 메모리 protocol_ai_handoff 정정
+
+**반영 문서:** [[22_Layer_System]], [[23_Anchor_System]], [[24_Color_System]], [[41_Character_Data_Schema]], [[42_Parts_Metadata_Schema]], [[60_Build_Roadmap]]
+
+---
+
 ## 2026-04-27 — 얼굴 액세서리 슬롯 도입 (skinMarking / faceOverlay)
 
 - **추가 슬롯:**
@@ -137,9 +179,10 @@ Helmet_Front
 - 파츠 좌표는 **FaceTemplate이 소유한다**
 - FaceTemplate 이미지에 **약속된 색상으로 1픽셀 마커를 직접 찍는다**
 - 눈/코/입 파츠가 덮으므로 렌더링에 노출되지 않는다
-- 마커 색상: Eye_L=#FF0000, Eye_R=#00FF00, Nose=#0000FF, Mouth=#FFFF00
-- Hair/Helmet 앵커는 Y 좌표만 사용, X는 캔버스 중앙 고정
-- Hair, Armor, Helmet 등 나머지 파츠는 **캔버스 중앙 기준 배치**
+- 마커 색상 (5종, 4-29 통합): Eye_L=#FF0000, Eye_R=#00FF00, Nose=#0000FF, Mouth=#FFFF00, Headwear=#FF00FF (Hair F/S/B + Helmet 공용 baseline Y)
+- Headwear 앵커는 Hair/Helmet baseline. X는 캔버스 중앙 또는 hair.offsetX 적용
+- Armor 등 그 외 파츠는 **캔버스 중앙 기준 배치**
+- 자세한 내용은 [[23_Anchor_System]] 참조
 
 ---
 
